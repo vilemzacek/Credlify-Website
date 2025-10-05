@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credlify - Make credibility your unfair advantage in search</title>
+    <meta name="description" content="Credlify perfected the formula for being chosen first and turning every search into opportunity">
+    <link rel="canonical" href="https://your-domain.com/credlify-landing">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/credlify-landing">
+    <meta property="og:title" content="Credlify - Make credibility your unfair advantage in search">
+    <meta property="og:description" content="Credlify perfected the formula for being chosen first and turning every search into opportunity">
+    <meta property="og:image" content="https://placehold.co/1200x630/0D1117/FFFFFF?text=Credlify">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-domain.com/credlify-landing">
+    <meta property="twitter:title" content="Credlify - Make credibility your unfair advantage in search">
+    <meta property="twitter:description" content="Credlify perfected the formula for being chosen first and turning every search into opportunity">
+    <meta property="twitter:image" content="https://placehold.co/1200x630/0D1117/FFFFFF?text=Credlify">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #0A0A0F;
+            --bg-secondary: #14141A;
+            --bg-card: #101014;
+            --ink: #FFFFFF;
+            --ink-light: #E6EDF3;
+            --muted: #8B949E;
+            --line: #21262D;
+            --accent: #58A6FF;
+            --accent-gradient: linear-gradient(90deg, #388BFF 0%, #A46DFF 100%);
+            
+            --feature-color-1: #00A3FF; /* Bright Blue */
+            --feature-color-2: #E040FB; /* Vibrant Purple/Magenta */
+            --feature-color-3: #00F5D4; /* Bright Teal/Cyan */
+            --feature-color-4: #FF477E; /* Hot Pink/Coral */
+            --feature-color-5: #FFD60A; /* Vibrant Yellow/Gold */
+            --feature-color-6: #39FF14; /* Neon Green */
+        }
+
+        html {
+           font-size: 95%;
+           scroll-snap-type: y proximity;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--ink-light);
+            font-family: 'Source Sans Pro', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Manrope', sans-serif;
+            letter-spacing: -0.025em;
+            font-weight: 700;
+            color: var(--ink);
+        }
+        
+        .cta-button {
+            letter-spacing: 0.025em;
+            background: var(--accent-gradient);
+            border-radius: 9999px; /* pill shape */
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+        }
+        .cta-button:hover {
+            transform: scale(1.03);
+            opacity: 0.95;
+        }
+
+        .ghost-button {
+            letter-spacing: 0.025em;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 300ms ease-out, transform 300ms ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .chip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .chip {
+                transition: none;
+            }
+        }
+        
+        .focus-ring:focus-visible {
+             outline: 2px solid var(--accent);
+             outline-offset: 2px;
+             border-radius: 6px;
+        }
+        
+        .hero-glow {
+            box-shadow: 0 0 80px 0px rgba(88, 166, 255, 0.2);
+        }
+
+        .ui-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--line);
+            border-radius: 40px;
+            box-shadow: 0 0 80px rgba(88, 166, 255, 0.15), 0 0 100px rgba(164, 109, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+            z-index: 1;
+        }
+
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            outline: none;
+            z-index: -1;
+        }
+
+        #svg-fallback {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            background-color: var(--bg);
+        }
+
+        /* Rating Animation Styles */
+        #rating-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+        
+        #rating-number-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        #rating-glow {
+            position: absolute;
+            inset: -20px;
+            background-color: var(--rating-color, #FF4136);
+            border-radius: 9999px;
+            filter: blur(30px);
+            opacity: 0.4;
+            transition: background-color 0.3s ease-in-out;
+            z-index: 0;
+        }
+
+        .dollar-pop, .review-pop, .negative-pop {
+            position: absolute;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 99px;
+            font-weight: bold;
+            font-size: 1rem;
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0);
+            --final-rotation: 0deg;
+        }
+
+        .dollar-pop {
+             background: linear-gradient(135deg, #2ECC40, #28a745);
+             box-shadow: 0 4px 15px rgba(46, 204, 64, 0.3);
+             animation: pop-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+             white-space: nowrap;
+        }
+        
+        .review-pop {
+            background: var(--accent-gradient);
+            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
+            font-size: 0.875rem;
+            white-space: nowrap;
+            animation: pop-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .negative-pop {
+            background: linear-gradient(135deg, #FF4136, #c72a21);
+            box-shadow: 0 4px 15px rgba(255, 65, 54, 0.3);
+            font-size: 0.875rem;
+            white-space: nowrap;
+            animation: pop-in-and-fade-out 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes pop-in {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(-20deg); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(var(--final-rotation)); opacity: 1; }
+        }
+        
+        @keyframes pop-in-and-fade-out {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(-20deg); opacity: 0; }
+            10% { transform: translate(-50%, -50%) scale(1) rotate(var(--final-rotation)); opacity: 1; }
+            70% { transform: translate(-50%, -50%) scale(1) rotate(var(--final-rotation)); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0.8) rotate(20deg); opacity: 0; }
+        }
+        
+        .star-rating svg { color: var(--line); transition: color 150ms ease-in-out; }
+        .star.activated { animation: star-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes star-pop-in { 0% { transform: scale(0.8); } 50% { transform: scale(1.25); } 100% { transform: scale(1); } }
+        
+        /* Feature Scrollytelling */
+        #features-container {
+            scroll-snap-type: y mandatory;
+        }
+        .feature-block {
+            scroll-snap-align: start;
+            min-height: 100vh;
+        }
+
+        .slideshow-image {
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .slideshow-image.active {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json"> { /* ... schema ... */ } </script>
+</head>
+<body class="bg-[var(--bg)] text-[var(--ink-light)]">
+    <canvas id="webgl-canvas"></canvas>
+    <div id="svg-fallback" class="hidden">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M0 50V0h50" fill="none" stroke="#21262D" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#p)"/></svg>
+    </div>
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/80 backdrop-blur-lg border-b border-[var(--line)] transition-shadow duration-300">
+        <div class="container mx-auto px-6 py-4 max-w-7xl">
+            <nav class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold text-[var(--ink)] focus-ring">Credlify</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-[var(--muted)] hover:text-[var(--ink)] transition-colors focus-ring">Features</a>
+                    <a href="#pricing" class="text-[var(--muted)] hover:text-[var(--ink)] transition-colors focus-ring">Pricing</a>
+                    <a href="#faq" class="text-[var(--muted)] hover:text-[var(--ink)] transition-colors focus-ring">FAQ</a>
+                    <a href="#apply" class="cta-button text-white px-5 py-2 text-sm font-semibold focus-ring">Apply for Beta Access</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden text-[var(--ink)] focus-ring rounded p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </nav>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-[var(--bg)]/95 border-t border-[var(--line)]">
+             <a href="#features" class="block py-2 text-[var(--muted)] hover:text-[var(--ink)] transition-colors focus-ring">Features</a>
+             <a href="#pricing" class="block py-2 text-[var(--muted)] hover:text-[var(--ink)] transition-colors focus-ring">Pricing</a>
+             <a href="#faq" class="block py-2 text-[var(--muted)] hover:text-[var(--ink)] transition-colors focus-ring">FAQ</a>
+             <a href="#apply" class="mt-4 block text-center cta-button text-white px-5 py-2.5 font-semibold focus-ring">Apply for Beta Access</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="pt-32 pb-24 md:pt-48 md:pb-48">
+            <div class="container mx-auto px-6 text-center relative z-10 max-w-7xl">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-5xl md:text-7xl font-extrabold leading-tight reveal">Make credibility your unfair advantage in search</h1>
+                    <p class="mt-6 text-lg md:text-xl text-[var(--muted)] max-w-2xl mx-auto reveal leading-relaxed" style="transition-delay: 100ms;">Credlify perfected the formula for being chosen first and turning every search into opportunity</p>
+                    <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 reveal" style="transition-delay: 200ms;">
+                        <a href="#beta-form" class="cta-button w-full sm:w-auto text-white px-8 py-3 font-semibold focus-ring">Apply for Beta Access (Free)</a>
+                    </div>
+                    <p class="mt-6 text-sm text-[var(--muted)] reveal" style="transition-delay: 300ms;">Exclusive beta. Limited spots for qualified businesses.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why It Matters Section -->
+        <section class="py-40 md:py-56 bg-[var(--bg)] relative z-10">
+            <div class="container mx-auto px-6 text-center max-w-7xl">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold reveal">Your reputation is your most valuable currency.</h2>
+                    <p class="mt-6 text-lg text-[var(--muted)] reveal leading-relaxed" style="transition-delay: 100ms;">Two bad reviews can change your growth curve. Credlify keeps your public image strong—so more people choose you the moment they search.</p>
+                    <div id="rating-animation-container" class="mt-28 md:mt-32 h-80 relative reveal" style="transition-delay: 200ms;">
+                         <div id="pop-container" class="absolute inset-0 z-0"></div>
+                        <div id="rating-wrapper" class="absolute inset-0 flex flex-col items-center justify-center">
+                            <div class="flex items-center space-x-4">
+                                <span id="rating-number-wrapper">
+                                    <span id="rating-number" class="relative z-10 text-6xl font-extrabold" style="color: var(--rating-color, #FF4136);">2.9</span>
+                                    <span id="rating-glow" style="--rating-color: #FF4136;"></span>
+                                </span>
+                                <div class="star-rating flex">
+                                    <svg class="w-8 h-8 star" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-8 h-8 star" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-8 h-8 star" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-8 h-8 star" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-8 h-8 star" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW Mirrored Feature Section -->
+        <section id="features" class="relative z-10">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-16 md:mb-24 pt-40">
+                    <h2 class="text-4xl md:text-5xl font-bold reveal">Features</h2>
+                    <p class="mt-4 text-lg text-[var(--muted)] max-w-3xl mx-auto reveal" style="transition-delay: 100ms;">
+                        Credlify runs 24/7 to answer reviews in your voice, request new ones, track the results, and turn that trust into measurable sales, while instantly flagging issues so your reputation stays protected.
+                    </p>
+                </div>
+
+                <div id="features-container" class="space-y-20 md:space-y-24">
+                    <!-- Feature 1: Dashboard -->
+                    <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
+                        <div class="border border-[var(--line)] rounded-3xl p-2">
+                            <img src="https://placehold.co/800x600/0A0A0F/00A3FF?text=Dashboard" alt="Credlify Dashboard Analytics" class="w-full h-full object-cover rounded-2xl">
+                        </div>
+                        <div>
+                            <h3 class="text-4xl font-extrabold" style="color: var(--feature-color-1);">Dashboard</h3>
+                            <p class="mt-4 text-lg text-[var(--muted)] leading-relaxed">Have your reviews analytics straight in front of you. Credlify pulls all your reviews and gives you a clear view of your performance.</p>
+                             <ul class="mt-6 space-y-4 text-lg">
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-1);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>See all your stats in one place</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-1);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Stay on top of rating trends over time</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-1);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Give your team a reference point to improve customer satisfaction</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Feature 2: AI Review Replies -->
+                    <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
+                        <div class="md:order-last border border-[var(--line)] rounded-3xl p-2">
+                             <div class="relative aspect-[4/3] image-slideshow">
+                                <img src="https://placehold.co/800x600/0A0A0F/E040FB?text=AI+Reply+1" alt="AI-powered review replies" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image active">
+                                <img src="https://placehold.co/800x600/0A0A0F/E040FB?text=AI+Reply+2" alt="Another AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image">
+                            </div>
+                        </div>
+                        <div>
+                             <h3 class="text-4xl font-extrabold" style="color: var(--feature-color-2);">AI Review Replies</h3>
+                            <p class="mt-4 text-lg text-[var(--muted)] leading-relaxed">Every review answered in your voice, automatically. Our AI responds to both positive and negative reviews using your brand tone.</p>
+                            <ul class="mt-6 space-y-4 text-lg">
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-2);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Cover 100% of reviews without extra work</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-2);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Turn negative reviews into trust by responding with empathy and professionalism</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-2);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Show professionalism and care to anyone checking your profile</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                     <!-- Feature 3: Outreach -->
+                    <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
+                        <div class="border border-[var(--line)] rounded-3xl p-2">
+                            <div class="relative aspect-[4/3] image-slideshow">
+                                <img src="https://placehold.co/800x600/0A0A0F/00F5D4?text=Outreach+1" alt="Automated outreach for 5-star reviews" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image active">
+                                <img src="https://placehold.co/800x600/0A0A0F/00F5D4?text=Outreach+2" alt="Another example of outreach" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image">
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-4xl font-extrabold" style="color: var(--feature-color-3);">Consistently Earn More 5-Star Reviews</h3>
+                            <p class="mt-4 text-lg text-[var(--muted)] leading-relaxed">Turn past and current clients into new reviews. Credlify contacts your customer list with thank-yous and review requests.</p>
+                            <ul class="mt-6 space-y-4 text-lg">
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-3);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Generate a steady stream of fresh 5★ reviews</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-3);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Add custom rewards like discounts or freebies</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-3);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Keep reviews flowing in without manual chasing</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                     <!-- Feature 4: Alerts -->
+                    <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
+                        <div class="md:order-last border border-[var(--line)] rounded-3xl p-2">
+                           <img src="https://placehold.co/800x600/0A0A0F/FF477E?text=Negative+Alerts" alt="Negative review alerts" class="w-full h-full object-cover rounded-2xl">
+                        </div>
+                        <div>
+                            <h3 class="text-4xl font-extrabold" style="color: var(--feature-color-4);">Negative Review Alerts</h3>
+                            <p class="mt-4 text-lg text-[var(--muted)] leading-relaxed">Get warned the moment your reputation is at risk. We notify you instantly if multiple negative reviews appear in a single day.</p>
+                             <ul class="mt-6 space-y-4 text-lg">
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-4);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Catch problems before they spread</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-4);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Protect your brand’s public image</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-4);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Act fast to stop rating drops</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                     <!-- Feature 5: Review Memory -->
+                    <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
+                         <div class="border border-[var(--line)] rounded-3xl p-2">
+                            <img src="https://placehold.co/800x600/0A0A0F/FFD60A?text=Review+Memory" alt="Review Memory Feature" class="w-full h-full object-cover rounded-2xl">
+                        </div>
+                        <div>
+                            <h3 class="text-4xl font-extrabold" style="color: var(--feature-color-5);">Review Memory</h3>
+                            <p class="mt-4 text-lg text-[var(--muted)] leading-relaxed">Build a history of what works in reviews. Credlify saves your reviews so your team can learn from it.</p>
+                            <ul class="mt-6 space-y-4 text-lg">
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-5);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Keep context even when staff change roles</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-5);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Repeat what worked, fix what didn’t</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-5);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Grow a library of winning responses over time</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                     <!-- Feature 6: Ask AI -->
+                    <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
+                        <div class="md:order-last border border-[var(--line)] rounded-3xl p-2">
+                           <div class="relative aspect-[4/3] image-slideshow">
+                                <img src="https://placehold.co/800x600/0A0A0F/39FF14?text=Ask+AI+1" alt="Ask AI Feature" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image active">
+                                <img src="https://placehold.co/800x600/0A0A0F/39FF14?text=Ask+AI+2" alt="Another Ask AI example" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image">
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-4xl font-extrabold" style="color: var(--feature-color-6);">Ask AI</h3>
+                            <p class="mt-4 text-lg text-[var(--muted)] leading-relaxed">Ask AI any questions regarding your reviews. Credlify integrates AI into your system, letting you instantly search and surface relevant info from your reviews, outreach, and trends.</p>
+                             <ul class="mt-6 space-y-4 text-lg">
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-6);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Ask in plain English and get instant numbers (avg rating, reply rate, outreach conversion)</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-6);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Surface patterns and risks fast (negative spikes, common complaints, slipping locations)</span></li>
+                                <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="color: var(--feature-color-6);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Get next steps on the spot (who to follow up with, suggested reply, outreach list)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Exclusivity Section -->
+        <section class="py-32 md:py-40 bg-[var(--bg)] relative z-10">
+            <div class="container mx-auto px-6 text-center max-w-7xl">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold reveal">Beta testers get lifetime advantages.</h2>
+                    <ul class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6 text-left max-w-4xl mx-auto text-lg">
+                        <li class="flex items-start reveal"><svg class="w-5 h-5 mr-3 mt-1 text-[var(--accent)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Free during beta.</li>
+                        <li class="flex items-start reveal" style="transition-delay: 80ms;"><svg class="w-5 h-5 mr-3 mt-1 text-[var(--accent)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Fixed discounted price forever.</li>
+                        <li class="flex items-start reveal" style="transition-delay: 160ms;"><svg class="w-5 h-5 mr-3 mt-1 text-[var(--accent)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Priority support for life.</li>
+                        <li class="flex items-start reveal" style="transition-delay: 240ms;"><svg class="w-5 h-5 mr-3 mt-1 text-[var(--accent)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Direct founder feedback loop.</li>
+                        <li class="flex items-start reveal" style="transition-delay: 320ms;"><svg class="w-5 h-5 mr-3 mt-1 text-[var(--accent)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Influence the roadmap.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- How It Works Section -->
+        <section class="py-32 md:py-56 relative z-10">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-16 md:mb-20">
+                    <h2 class="text-4xl md:text-5xl font-bold reveal">Onboard fast. See results faster.</h2>
+                </div>
+                <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-10 text-center relative">
+                    <div class="absolute top-6 left-0 w-full h-px bg-[var(--line)] hidden md:block"></div>
+                    <div class="relative reveal">
+                        <div class="flex items-center justify-center w-12 h-12 bg-[var(--bg)] border-2 border-[var(--line)] rounded-full mx-auto text-xl font-bold z-10 relative">1</div>
+                        <h3 class="mt-6 text-xl font-bold">Apply for Beta</h3>
+                        <p class="mt-2 text-[var(--muted)]">Tell us about your business in 60 seconds.</p>
+                    </div>
+                    <div class="relative reveal" style="transition-delay: 80ms;">
+                        <div class="flex items-center justify-center w-12 h-12 bg-[var(--bg)] border-2 border-[var(--line)] rounded-full mx-auto text-xl font-bold z-10 relative">2</div>
+                        <h3 class="mt-6 text-xl font-bold">Plug In</h3>
+                        <p class="mt-2 text-[var(--muted)]">We set up your dashboard, outreach, and AI tone in a quick call.</p>
+                    </div>
+                    <div class="relative reveal" style="transition-delay: 160ms;">
+                        <div class="flex items-center justify-center w-12 h-12 bg-[var(--bg)] border-2 border-[var(--line)] rounded-full mx-auto text-xl font-bold z-10 relative">3</div>
+                        <h3 class="mt-6 text-xl font-bold">Grow & Improve</h3>
+                        <p class="mt-2 text-[var(--muted)]">You get results and give feedback via quick surveys or short calls.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-32 md:py-40 relative z-10">
+            <div class="container mx-auto px-6 text-center max-w-7xl">
+                <div class="max-w-md mx-auto ui-card px-10 py-12">
+                    <h2 class="text-3xl font-bold reveal">Pricing</h2>
+                    <p class="text-7xl font-bold my-6 reveal" style="transition-delay: 80ms;">$0 <span class="text-xl font-normal text-[var(--muted)]">/ month (Beta)</span></p>
+                    <p class="text-sm text-[var(--muted)] reveal" style="transition-delay: 160ms;">Future price: $60/month. Your Beta discount is 50% and is locked for life.</p>
+                    <a href="#beta-form" class="mt-8 block cta-button w-full text-white px-8 py-3 font-semibold reveal focus-ring" style="transition-delay: 240ms;">Apply for Beta Access (Free)</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Founder's Note Section -->
+        <section class="py-32 md:py-40 bg-[var(--bg)] relative z-10">
+            <div class="container mx-auto px-6 text-center max-w-7xl">
+                <div class="max-w-2xl mx-auto">
+                    <img src="https://placehold.co/100x100/21262D/8B949E?text=VZ" class="rounded-full mx-auto reveal" alt="Vilem Zacek, Founder">
+                    <h2 class="text-3xl font-bold reveal mt-6">Why we’re doing a beta</h2>
+                    <blockquote class="mt-6 text-lg text-[var(--muted)] reveal leading-relaxed" style="transition-delay: 80ms;">
+                        <p>"In a few years, review automation will be as essential as having a website. Right now, most businesses don’t take it seriously—yet it’s the cheapest lead-generation strategy available. We want early partners to help us shape this future standard, and in return you’ll secure lifetime access and a head start your competitors can’t catch up to."</p>
+                    </blockquote>
+                    <p class="mt-6 font-semibold reveal" style="transition-delay: 160ms;">— Vilem Zacek, Founder</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Beta Application Form Section -->
+        <section id="beta-form" class="py-32 md:py-56 relative z-10">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold reveal">Apply for the Beta</h2>
+                    <p class="mt-4 text-lg text-[var(--muted)] max-w-xl mx-auto reveal leading-relaxed" style="transition-delay: 80ms;">Fill out the form below to secure your spot. We'll be in touch shortly.</p>
+                </div>
+                <div class="max-w-lg mx-auto ui-card p-8 md:p-12 reveal" style="transition-delay: 160ms;">
+                    <form id="beta" action="https://formspree.io/f/mzzjrgyv" method="POST" class="space-y-8">
+                        <div>
+                            <label for="full_name" class="block text-sm font-medium text-[var(--muted)] mb-2">Full Name*</label>
+                            <input id="full_name" name="full_name" placeholder="John Smith" required class="w-full bg-[var(--bg-secondary)] border border-[var(--line)] rounded-full px-6 py-3 text-[var(--ink)] placeholder-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] transition-all" />
+                        </div>
+                        <div>
+                           <label for="email" class="block text-sm font-medium text-[var(--muted)] mb-2">Work Email*</label>
+                            <input id="email" name="email" type="email" placeholder="john@artisan.co" required class="w-full bg-[var(--bg-secondary)] border border-[var(--line)] rounded-full px-6 py-3 text-[var(--ink)] placeholder-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] transition-all" />
+                        </div>
+                        <div>
+                             <label for="industry" class="block text-sm font-medium text-[var(--muted)] mb-2">Industry*</label>
+                             <input id="industry" name="industry" placeholder="e.g., Gym, Dentist" required class="w-full bg-[var(--bg-secondary)] border border-[var(--line)] rounded-full px-6 py-3 text-[var(--ink)] placeholder-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] transition-all" />
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-[var(--muted)] mb-2">Which reply tone fits your brand?</label>
+                            <div id="custom-select" class="relative">
+                                <input type="hidden" name="reply_tone" id="reply_tone_input">
+                                <button type="button" id="select-button" class="w-full flex justify-between items-center bg-[var(--bg-secondary)] border border-[var(--line)] rounded-full px-6 py-3 text-left focus:outline-none focus:ring-2 focus:ring-[var(--accent)] transition-all">
+                                    <span id="select-text" class="text-[var(--muted)]">Select a reply tone...</span>
+                                    <svg id="select-chevron" class="w-5 h-5 transition-transform transform shrink-0 text-[var(--muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </button>
+                                <div id="select-options" class="hidden absolute top-full left-0 right-0 mt-2 bg-[var(--bg-card)] border border-[var(--line)] rounded-2xl z-10 p-2 shadow-lg">
+                                    <div data-value="Warm & friendly" class="select-option block p-3 rounded-lg cursor-pointer hover:bg-[var(--bg-secondary)]">
+                                        <span>Warm & friendly</span>
+                                    </div>
+                                    <div data-value="Concise & professional" class="select-option block p-3 rounded-lg cursor-pointer hover:bg-[var(--bg-secondary)]">
+                                        <span>Concise & professional</span>
+                                    </div>
+                                    <div data-value="Premium & formal" class="select-option block p-3 rounded-lg cursor-pointer hover:bg-[var(--bg-secondary)]">
+                                        <span>Premium & formal</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                           <label class="flex items-center space-x-3 text-sm text-[var(--muted)] cursor-pointer"><input type="checkbox" name="consent" required class="h-4 w-4 rounded-sm border-[var(--line)] bg-[var(--bg-secondary)] text-[var(--accent)] focus:ring-[var(--accent)]" /> <span>I agree to the <a href="https://docs.google.com/document/d/1cQbxyhvLvK9HUsV4eC12N2pkIN7H6-k_c-CwpSN4VUQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="underline hover:text-[var(--ink)]">Privacy Policy</a> and <a href="https://docs.google.com/document/d/1Znh1k-ABaLPhFoqmpriA5WW3SlMZLuAi2udwWtaIyu4/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="underline hover:text-[var(--ink)]">Terms of Service</a>.</span></label>
+                        </div>
+                        <input name="website" style="display:none" autocomplete="off" />
+
+                        <button type="submit" class="cta-button w-full text-white px-8 py-3.5 font-semibold focus-ring text-lg">Send Application</button>
+                        <p id="status" class="text-center pt-2 text-[var(--muted)] h-6"></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-32 md:py-56 relative z-10">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold reveal">Frequently Asked Questions</h2>
+                </div>
+                <div class="max-w-3xl mx-auto">
+                    <!-- FAQ Item 1 -->
+                    <div class="border-b border-[var(--line)] reveal">
+                        <button class="faq-question w-full flex justify-between items-center text-left py-6 focus-ring" aria-expanded="false">
+                            <h3 class="text-lg font-bold">Who qualifies for the beta?</h3>
+                            <svg class="faq-icon w-6 h-6 transition-transform transform shrink-0 text-[var(--muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-answer hidden pb-6 pr-8">
+                            <p class="text-lg text-[var(--muted)] leading-relaxed">Physical, credibility heavy businesses with a public Google business profile.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 2 -->
+                    <div class="border-b border-[var(--line)] reveal">
+                        <button class="faq-question w-full flex justify-between items-center text-left py-6 focus-ring" aria-expanded="false">
+                            <h3 class="text-lg font-bold">What do you need from me?</h3>
+                            <svg class="faq-icon w-6 h-6 transition-transform transform shrink-0 text-[var(--muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-answer hidden pb-6 pr-8">
+                            <p class="text-lg text-[var(--muted)] leading-relaxed">Stay in touch with our engineer for fast support and give feedback twice monthly (short survey or 5–10 min call) so we can tailor Credlify to you.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 3 -->
+                    <div class="border-b border-[var(--line)] reveal">
+                        <button class="faq-question w-full flex justify-between items-center text-left py-6 focus-ring" aria-expanded="false">
+                            <h3 class="text-lg font-bold">Can I cancel anytime?</h3>
+                            <svg class="faq-icon w-6 h-6 transition-transform transform shrink-0 text-[var(--muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-answer hidden pb-6 pr-8">
+                            <p class="text-lg text-[var(--muted)] leading-relaxed">Yes. Anytime.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 4 -->
+                    <div class="border-b border-[var(--line)] reveal">
+                        <button class="faq-question w-full flex justify-between items-center text-left py-6 focus-ring" aria-expanded="false">
+                            <h3 class="text-lg font-bold">How is my data handled?</h3>
+                            <svg class="faq-icon w-6 h-6 transition-transform transform shrink-0 text-[var(--muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-answer hidden pb-6 pr-8">
+                            <p class="text-lg text-[var(--muted)] leading-relaxed">We only use your data to run the service and improve features you opt into. You can request deletion anytime.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 5 -->
+                    <div class="border-b border-[var(--line)] reveal">
+                        <button class="faq-question w-full flex justify-between items-center text-left py-6 focus-ring" aria-expanded="false">
+                            <h3 class="text-lg font-bold">What happens after beta?</h3>
+                            <svg class="faq-icon w-6 h-6 transition-transform transform shrink-0 text-[var(--muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-answer hidden pb-6 pr-8">
+                            <p class="text-lg text-[var(--muted)] leading-relaxed">You keep access on a discounted, fixed price with priority support for life, plus additional bonuses.</p>
+                        </div>
+                    </div>
+                     <!-- FAQ Item 6 -->
+                    <div class="border-b border-[var(--line)] reveal">
+                        <button class="faq-question w-full flex justify-between items-center text-left py-6 focus-ring" aria-expanded="false">
+                            <h3 class="text-lg font-bold">How long is the beta?</h3>
+                            <svg class="faq-icon w-6 h-6 transition-transform transform shrink-0 text-[var(--muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-answer hidden pb-6 pr-8">
+                            <p class="text-lg text-[var(--muted)] leading-relaxed">Planned for 2–3 months. We’ll give you 2 weeks’ notice and ensure a smooth handoff to your discounted plan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section id="apply" class="py-32 md:py-40 text-center bg-[var(--bg)] relative z-10">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <h2 class="text-4xl md:text-5xl font-bold reveal">Limited beta spots.</h2>
+                <p class="mt-4 text-lg text-[var(--muted)] max-w-xl mx-auto reveal leading-relaxed" style="transition-delay: 80ms;">Get the review engine your competitors don’t have.</p>
+                <div class="mt-8 reveal" style="transition-delay: 160ms;">
+                    <a href="#beta-form" class="cta-button text-white px-8 py-3 font-semibold focus-ring">Apply for Beta Access (Free)</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-[var(--line)] relative z-10">
+        <div class="container mx-auto px-6 text-center text-[var(--muted)] max-w-7xl">
+            <div class="flex justify-center space-x-6">
+                <a href="https://docs.google.com/document/d/1cQbxyhvLvK9HUsV4eC12N2pkIN7H6-k_c-CwpSN4VUQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--ink)] transition-colors focus-ring">Privacy</a>
+                <a href="https://docs.google.com/document/d/1Znh1k-ABaLPhFoqmpriA5WW3SlMZLuAi2udwWtaIyu4/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--ink)] transition-colors focus-ring">Terms</a>
+            </div>
+            <p class="mt-6 text-sm">© Credlify, <span id="year"></span></p>
+        </div>
+    </footer>
+    
+    <!-- Mobile Bottom CTA -->
+    <div id="mobile-bottom-cta" class="fixed bottom-0 left-0 right-0 bg-[var(--bg)]/80 backdrop-blur-lg p-4 border-t border-[var(--line)] md:hidden transition-transform translate-y-full z-20">
+         <a href="#beta-form" class="block text-center cta-button text-white px-5 py-3 font-semibold w-full focus-ring">Apply for Beta Access (Free)</a>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Existing UI Logic ---
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+
+        document.querySelectorAll('#mobile-menu a, nav a[href^="#"]').forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) { mobileMenu.classList.add('hidden'); }
+            });
+        });
+        
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('shadow-lg', window.scrollY > 10);
+            header.classList.toggle('shadow-black/20', window.scrollY > 10);
+        });
+
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { 
+                    entry.target.classList.add('visible'); 
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => observer.observe(el));
+
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector('.faq-icon');
+                const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                button.setAttribute('aria-expanded', !isExpanded);
+                answer.classList.toggle('hidden');
+                icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+            });
+        });
+
+        const mobileBottomCta = document.getElementById('mobile-bottom-cta');
+        const finalCtaSection = document.getElementById('apply');
+        const ctaObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                const shouldShow = !entry.isIntersecting && window.scrollY > 300;
+                mobileBottomCta.style.transform = shouldShow ? 'translateY(0)' : 'translateY(100%)';
+            });
+        }, { threshold: 0.1 });
+
+        if(finalCtaSection) { ctaObserver.observe(finalCtaSection); }
+
+        // --- Custom Single-Select Logic ---
+        const customSelectContainer = document.getElementById('custom-select');
+        if (customSelectContainer) {
+            const button = document.getElementById('select-button');
+            const optionsContainer = document.getElementById('select-options');
+            const text = document.getElementById('select-text');
+            const chevron = document.getElementById('select-chevron');
+            const hiddenInput = document.getElementById('reply_tone_input');
+            const options = optionsContainer.querySelectorAll('.select-option');
+
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isHidden = optionsContainer.classList.toggle('hidden');
+                chevron.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+            });
+
+            options.forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const selectedValue = option.getAttribute('data-value');
+                    hiddenInput.value = selectedValue;
+                    text.textContent = selectedValue;
+                    text.classList.remove('text-[var(--muted)]');
+                    optionsContainer.classList.add('hidden');
+                    chevron.style.transform = 'rotate(0deg)';
+                });
+            });
+
+            document.addEventListener('click', () => {
+                if (!optionsContainer.classList.contains('hidden')) {
+                    optionsContainer.classList.add('hidden');
+                    chevron.style.transform = 'rotate(0deg)';
+                }
+            });
+        }
+
+        // --- Beta Form Logic ---
+        const form = document.getElementById('beta');
+        const statusEl = document.getElementById('status');
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const fd = new FormData(form);
+                if (fd.get('website')) return;
+
+                statusEl.textContent = "Sending…";
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: fd,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        statusEl.textContent = "Thanks! We’ll be in touch shortly.";
+                        form.reset();
+                        if (customSelectContainer) {
+                            setTimeout(() => {
+                                document.getElementById('select-text').textContent = 'Select a reply tone...';
+                                document.getElementById('select-text').classList.add('text-[var(--muted)]');
+                                document.getElementById('reply_tone_input').value = '';
+                            }, 100);
+                        }
+                    } else {
+                        const data = await response.json();
+                        statusEl.textContent = data.errors ? data.errors.map(e => e.message).join(", ") : "Something failed.";
+                    }
+                } catch (err) {
+                    console.error('Form submission error:', err);
+                    statusEl.textContent = "Something failed. Contact vilem.zacek@gmail.com for any issues.";
+                }
+            });
+        }
+        
+        // --- Rating Animation Logic ---
+        const ratingAnimationContainer = document.getElementById('rating-animation-container');
+        if (ratingAnimationContainer) {
+            const ratingNumberEl = document.getElementById('rating-number');
+            const ratingGlowEl = document.getElementById('rating-glow');
+            const popContainer = document.getElementById('pop-container');
+            const stars = document.querySelectorAll('#rating-wrapper .star');
+            let animationStarted = false;
+            const starStates = [0, 0, 0, 0, 0]; 
+
+            const reviews = ["Really happy with the service.", "Super easy to work with.", "Everything went better than I thought.", "Exactly what I needed.", "Friendly and helpful the whole time.", "Made the process simple."];
+            const dollarValues = [69, 49, 129, 89, 59, 79, 99, 149, 119, 75, 109, 115];
+            const items = [ { type: 'review', content: reviews[0], pos: { x: 0, y: 100, r: 0 } }, { type: 'dollar', content: dollarValues[0], pos: { x: -150, y: 140, r: -8 } }, { type: 'dollar', content: dollarValues[1], pos: { x: 150, y: 140, r: 8 } }, { type: 'review', content: reviews[1], pos: { x: -280, y: 180, r: -5 } }, { type: 'review', content: reviews[2], pos: { x: 280, y: 180, r: 5 } }, { type: 'dollar', content: dollarValues[2], pos: { x: -80, y: 230, r: 10 } }, { type: 'dollar', content: dollarValues[3], pos: { x: 80, y: 230, r: -10 } }, { type: 'review', content: reviews[3], pos: { x: -220, y: 260, r: 12 } }, { type: 'review', content: reviews[4], pos: { x: 220, y: 260, r: -12 } }, { type: 'dollar', content: dollarValues[4], pos: { x: -350, y: 120, r: 6 } }, { type: 'dollar', content: dollarValues[5], pos: { x: 350, y: 120, r: -6 } }, { type: 'dollar', content: dollarValues[6], pos: { x: -380, y: 240, r: -15 } }, { type: 'dollar', content: dollarValues[7], pos: { x: 380, y: 240, r: 15 } }, { type: 'review', content: reviews[5], pos: { x: 0, y: 290, r: 0 } }, { type: 'dollar', content: dollarValues[8], pos: { x: -160, y: 300, r: -8 } }, { type: 'dollar', content: dollarValues[9], pos: { x: 160, y: 300, r: 8 } }, ];
+            const popupsTriggered = new Array(items.length).fill(false);
+
+            const ratingObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && !animationStarted) {
+                    animationStarted = true;
+                    startRatingAnimation();
+                }
+            }, { threshold: 0.6 });
+            ratingObserver.observe(ratingAnimationContainer);
+
+            function startRatingAnimation() {
+                 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    ratingNumberEl.textContent = '5.0';
+                    ratingNumberEl.style.color = '#2ECC40';
+                    ratingGlowEl.style.backgroundColor = '#2ECC40';
+                    stars.forEach(star => star.style.color = '#FFD700');
+                    return;
+                }
+                
+                const negativeReviews = ["Service was slow", "Not what I expected", "Wouldn't recommend", "Overpriced for quality", "Communication was poor", "Disappointing result"];
+                const negativeLayout = [{ x: -180, y: 20, r: -8 }, { x: 180, y: 20, r: 5 }, { x: 0, y: -50, r: 0 }, { x: -100, y: 100, r: 10 }, { x: 100, y: 100, r: -12 }, { x: 0, y: 150, r: -5 }];
+                negativeReviews.forEach((review, index) => createPopElement('negative', [review], negativeLayout[index].x, negativeLayout[index].y, negativeLayout[index].r));
+
+                setTimeout(() => {
+                    let startTime = performance.now();
+                    const halfwayPoint = Math.ceil(items.length / 2);
+
+                    function animateRating(currentTime) {
+                        const progress = Math.min((currentTime - startTime) / 2500, 1);
+                        const currentRating = 2.9 + (2.1 * progress);
+                        ratingNumberEl.textContent = currentRating.toFixed(1);
+                        
+                        const red = [255, 65, 54], yellow = [255, 220, 0], green = [46, 204, 64];
+                        let r, g, b;
+                        if (progress < 0.5) {
+                            const p = progress * 2;
+                            r = red[0] + (yellow[0] - red[0]) * p; g = red[1] + (yellow[1] - red[1]) * p; b = red[2] + (yellow[2] - red[2]) * p;
+                        } else {
+                            const p = (progress - 0.5) * 2;
+                            r = yellow[0] + (green[0] - yellow[0]) * p; g = yellow[1] + (green[1] - yellow[1]) * p; b = yellow[2] + (green[2] - yellow[2]) * p;
+                        }
+                        const colorStr = `rgb(${r}, ${g}, ${b})`;
+                        ratingNumberEl.style.color = colorStr;
+                        ratingGlowEl.style.backgroundColor = colorStr;
+                        
+                        // Trigger first half of popups during animation
+                        const popupsToShow = Math.floor(progress * halfwayPoint);
+                        for (let i = 0; i < popupsToShow; i++) {
+                            if (!popupsTriggered[i]) {
+                                popupsTriggered[i] = true;
+                                const item = items[i];
+                                setTimeout(() => {
+                                    createPopElement(item.type, [item.content], item.pos.x, item.pos.y, item.pos.r);
+                                }, Math.random() * 200);
+                            }
+                        }
+
+                        const ratingThreshold = Math.floor(currentRating * 2) / 2;
+                        stars.forEach((star, index) => {
+                             if (ratingThreshold >= index + 0.5 && !starStates[index]) {
+                                starStates[index] = 1;
+                                star.style.color = '#FFD700';
+                                star.classList.add('activated');
+                                setTimeout(() => star.classList.remove('activated'), 400);
+                            }
+                        });
+
+                        if (progress < 1) requestAnimationFrame(animateRating);
+                        else {
+                            ratingNumberEl.textContent = '5.0';
+                            const greenStr = 'rgb(46, 204, 64)';
+                            ratingNumberEl.style.color = greenStr;
+                            ratingGlowEl.style.backgroundColor = greenStr;
+                            stars.forEach(star => star.style.color = '#FFD700');
+                            setTimeout(startPopAnimations, 200);
+                        }
+                    }
+                    requestAnimationFrame(animateRating);
+                }, 2400);
+            }
+
+            function startPopAnimations() {
+                const halfwayPoint = Math.ceil(items.length / 2);
+                for (let i = halfwayPoint; i < items.length; i++) {
+                     if (!popupsTriggered[i]) {
+                        popupsTriggered[i] = true;
+                        const item = items[i];
+                        const delay = (i - halfwayPoint) * 100;
+                        setTimeout(() => {
+                           createPopElement(item.type, [item.content], item.pos.x, item.pos.y, item.pos.r);
+                        }, delay);
+                    }
+                }
+            }
+            
+            function createPopElement(type, contentArray, x, y, rotation) {
+                const popEl = document.createElement('div');
+                popEl.style.left = `calc(50% + ${x}px)`;
+                popEl.style.top = `calc(50% + ${y}px)`;
+                popEl.style.setProperty('--final-rotation', `${rotation}deg`);
+                popEl.classList.add(type === 'dollar' ? 'dollar-pop' : (type === 'review' ? 'review-pop' : 'negative-pop'));
+                popEl.textContent = type === 'dollar' ? `+ $${contentArray[0]}` : `"${contentArray[0]}"`;
+                popContainer.appendChild(popEl);
+                if (type === 'negative') { setTimeout(() => popEl.remove(), 2400); }
+            }
+        }
+        
+        // --- Image Slideshow Logic ---
+        document.querySelectorAll('.image-slideshow').forEach(slideshow => {
+            const images = slideshow.querySelectorAll('.slideshow-image');
+            if (images.length > 1) {
+                let currentIndex = 0;
+                setInterval(() => {
+                    images[currentIndex].classList.remove('active');
+                    currentIndex = (currentIndex + 1) % images.length;
+                    images[currentIndex].classList.add('active');
+                }, 4500); // Change image every 4.5 seconds
+            }
+        });
+
+        // --- Three.js Background Logic ---
+        const canvas = document.getElementById('webgl-canvas');
+        const svgFallback = document.getElementById('svg-fallback');
+        if (!(() => { try { return !!(window.WebGLRenderingContext && (document.createElement('canvas').getContext('webgl') || document.createElement('canvas').getContext('experimental-webgl'))); } catch(e) { return false; } })()) {
+            canvas.style.display = 'none';
+            svgFallback.classList.remove('hidden');
+            return;
+        }
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        
+        let scene = new THREE.Scene();
+        let camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        let renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        
+        const clock = new THREE.Clock();
+        const material = new THREE.ShaderMaterial({
+            uniforms: {
+                u_time: { value: 0.0 },
+                u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
+            },
+            vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+            fragmentShader: `
+                varying vec2 vUv;
+                uniform float u_time;
+                uniform vec2 u_resolution;
+
+                void main() {
+                    vec2 st = vUv - 0.5;
+                    st.x *= u_resolution.x / u_resolution.y;
+
+                    float angle = atan(st.y, st.x);
+                    float radius = length(st);
+
+                    // Create radiating lines
+                    float num_lines = 100.0;
+                    float line_intensity = pow(sin(angle * num_lines) * 0.5 + 0.5, 10.0);
+                    
+                    // Animated brightness pulse for the lines
+                    line_intensity *= 0.1 + (sin(u_time * 0.5) * 0.5 + 0.5) * 0.2;
+
+                    // Fade lines based on radius
+                    float fade = smoothstep(0.7, 0.2, radius);
+                    line_intensity *= fade;
+
+                    vec3 color = vec3(0.2, 0.25, 0.5); // A subtle blue/grey
+
+                    gl_FragColor = vec4(color * line_intensity, 1.0);
+                }
+            `
+        });
+        scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material));
+
+        function onWindowResize() {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            material.uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+        }
+        window.addEventListener('resize', onWindowResize);
+        onWindowResize();
+
+        (function animate() {
+            material.uniforms.u_time.value = clock.getElapsedTime();
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        })();
+    });
+    </script>
+</body>
+</html>
+
+
+
+
