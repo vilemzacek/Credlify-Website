@@ -5,21 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Credlify - Make credibility your unfair advantage in search</title>
     <meta name="description" content="Credlify perfected the formula for being chosen first and turning every search into opportunity">
-    <link rel="canonical" href="https://your-domain.com/credlify-landing">
 
-    <!-- Open Graph / Facebook -->
+    <!-- Favicon -->
+    <link rel="icon" href="./assets/img/favicon.png">
+
+    <!-- Canonical + Social OG/Twitter (use your GitHub Pages URL) -->
+    <link rel="canonical" href="https://vilemzacek.github.io/Credlify-Website/">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-domain.com/credlify-landing">
+    <meta property="og:url" content="https://vilemzacek.github.io/Credlify-Website/">
     <meta property="og:title" content="Credlify - Make credibility your unfair advantage in search">
     <meta property="og:description" content="Credlify perfected the formula for being chosen first and turning every search into opportunity">
-    <meta property="og:image" content="https://placehold.co/1200x630/0D1117/FFFFFF?text=Credlify">
+    <meta property="og:image" content="https://vilemzacek.github.io/Credlify-Website/assets/img/social-og-1200x630.png">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://your-domain.com/credlify-landing">
+    <meta property="twitter:url" content="https://vilemzacek.github.io/Credlify-Website/">
     <meta property="twitter:title" content="Credlify - Make credibility your unfair advantage in search">
     <meta property="twitter:description" content="Credlify perfected the formula for being chosen first and turning every search into opportunity">
-    <meta property="twitter:image" content="https://placehold.co/1200x630/0D1117/FFFFFF?text=Credlify">
+    <meta property="twitter:image" content="https://vilemzacek.github.io/Credlify-Website/assets/img/social-og-1200x630.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,200 +42,54 @@
             --accent: #58A6FF;
             --accent-gradient: linear-gradient(90deg, #388BFF 0%, #A46DFF 100%);
             
-            --feature-color-1: #00A3FF; /* Bright Blue */
-            --feature-color-2: #E040FB; /* Vibrant Purple/Magenta */
-            --feature-color-3: #00F5D4; /* Bright Teal/Cyan */
-            --feature-color-4: #FF477E; /* Hot Pink/Coral */
-            --feature-color-5: #FFD60A; /* Vibrant Yellow/Gold */
-            --feature-color-6: #39FF14; /* Neon Green */
+            --feature-color-1: #00A3FF;
+            --feature-color-2: #E040FB;
+            --feature-color-3: #00F5D4;
+            --feature-color-4: #FF477E;
+            --feature-color-5: #FFD60A;
+            --feature-color-6: #39FF14;
         }
 
-        html {
-           font-size: 95%;
-           scroll-snap-type: y proximity;
-        }
-
+        html { font-size: 95%; scroll-snap-type: y proximity; }
         body {
-            background-color: var(--bg);
-            color: var(--ink-light);
+            background-color: var(--bg); color: var(--ink-light);
             font-family: 'Source Sans Pro', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
         }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Manrope', sans-serif;
-            letter-spacing: -0.025em;
-            font-weight: 700;
-            color: var(--ink);
-        }
-        
-        .cta-button {
-            letter-spacing: 0.025em;
-            background: var(--accent-gradient);
-            border-radius: 9999px; /* pill shape */
-            transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-        }
-        .cta-button:hover {
-            transform: scale(1.03);
-            opacity: 0.95;
-        }
-
-        .ghost-button {
-            letter-spacing: 0.025em;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 300ms ease-out, transform 300ms ease-out;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .chip.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .reveal, .chip {
-                transition: none;
-            }
-        }
-        
-        .focus-ring:focus-visible {
-             outline: 2px solid var(--accent);
-             outline-offset: 2px;
-             border-radius: 6px;
-        }
-        
-        .hero-glow {
-            box-shadow: 0 0 80px 0px rgba(88, 166, 255, 0.2);
-        }
-
-        .ui-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--line);
-            border-radius: 40px;
-            box-shadow: 0 0 80px rgba(88, 166, 255, 0.15), 0 0 100px rgba(164, 109, 255, 0.15);
-            position: relative;
-            overflow: hidden;
-            transform: translateZ(0);
-            z-index: 1;
-        }
-
-        #webgl-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            outline: none;
-            z-index: -1;
-        }
-
-        #svg-fallback {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.1;
-            background-color: var(--bg);
-        }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Manrope', sans-serif; letter-spacing: -0.025em; font-weight: 700; color: var(--ink); }
+        .cta-button { letter-spacing: 0.025em; background: var(--accent-gradient); border-radius: 9999px; transition: transform .2s ease-out, opacity .2s ease-out; }
+        .cta-button:hover { transform: scale(1.03); opacity: .95; }
+        .ghost-button { letter-spacing: 0.025em; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 300ms ease-out, transform 300ms ease-out; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .chip.visible { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) { .reveal, .chip { transition: none; } }
+        .focus-ring:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+        .hero-glow { box-shadow: 0 0 80px 0px rgba(88,166,255,.2); }
+        .ui-card { background-color: var(--bg-card); border: 1px solid var(--line); border-radius: 40px; box-shadow: 0 0 80px rgba(88,166,255,.15), 0 0 100px rgba(164,109,255,.15); position: relative; overflow: hidden; transform: translateZ(0); z-index: 1; }
+        #webgl-canvas { position: fixed; top: 0; left: 0; outline: none; z-index: -1; }
+        #svg-fallback { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: .1; background-color: var(--bg); }
 
         /* Rating Animation Styles */
-        #rating-wrapper {
-            position: relative;
-            z-index: 10;
-        }
-        
-        #rating-number-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-        #rating-glow {
-            position: absolute;
-            inset: -20px;
-            background-color: var(--rating-color, #FF4136);
-            border-radius: 9999px;
-            filter: blur(30px);
-            opacity: 0.4;
-            transition: background-color 0.3s ease-in-out;
-            z-index: 0;
-        }
-
-        .dollar-pop, .review-pop, .negative-pop {
-            position: absolute;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 99px;
-            font-weight: bold;
-            font-size: 1rem;
-            pointer-events: none;
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0);
-            --final-rotation: 0deg;
-        }
-
-        .dollar-pop {
-             background: linear-gradient(135deg, #2ECC40, #28a745);
-             box-shadow: 0 4px 15px rgba(46, 204, 64, 0.3);
-             animation: pop-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-             white-space: nowrap;
-        }
-        
-        .review-pop {
-            background: var(--accent-gradient);
-            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.3);
-            font-size: 0.875rem;
-            white-space: nowrap;
-            animation: pop-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        .negative-pop {
-            background: linear-gradient(135deg, #FF4136, #c72a21);
-            box-shadow: 0 4px 15px rgba(255, 65, 54, 0.3);
-            font-size: 0.875rem;
-            white-space: nowrap;
-            animation: pop-in-and-fade-out 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        @keyframes pop-in {
-            0% { transform: translate(-50%, -50%) scale(0) rotate(-20deg); opacity: 0; }
-            100% { transform: translate(-50%, -50%) scale(1) rotate(var(--final-rotation)); opacity: 1; }
-        }
-        
-        @keyframes pop-in-and-fade-out {
-            0% { transform: translate(-50%, -50%) scale(0) rotate(-20deg); opacity: 0; }
-            10% { transform: translate(-50%, -50%) scale(1) rotate(var(--final-rotation)); opacity: 1; }
-            70% { transform: translate(-50%, -50%) scale(1) rotate(var(--final-rotation)); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(0.8) rotate(20deg); opacity: 0; }
-        }
-        
+        #rating-wrapper { position: relative; z-index: 10; }
+        #rating-number-wrapper { position: relative; display: inline-block; }
+        #rating-glow { position: absolute; inset: -20px; background-color: var(--rating-color, #FF4136); border-radius: 9999px; filter: blur(30px); opacity: .4; transition: background-color .3s ease-in-out; z-index: 0; }
+        .dollar-pop, .review-pop, .negative-pop { position: absolute; color: white; padding: 4px 10px; border-radius: 99px; font-weight: bold; font-size: 1rem; pointer-events: none; opacity: 0; transform: translate(-50%, -50%) scale(0); --final-rotation: 0deg; }
+        .dollar-pop { background: linear-gradient(135deg,#2ECC40,#28a745); box-shadow: 0 4px 15px rgba(46,204,64,.3); animation: pop-in .6s cubic-bezier(.175,.885,.32,1.275) forwards; white-space: nowrap; }
+        .review-pop { background: var(--accent-gradient); box-shadow: 0 4px 15px rgba(88,166,255,.3); font-size: .875rem; white-space: nowrap; animation: pop-in .6s cubic-bezier(.175,.885,.32,1.275) forwards; }
+        .negative-pop { background: linear-gradient(135deg,#FF4136,#c72a21); box-shadow: 0 4px 15px rgba(255,65,54,.3); font-size: .875rem; white-space: nowrap; animation: pop-in-and-fade-out 2.5s cubic-bezier(.175,.885,.32,1.275) forwards; }
+        @keyframes pop-in { 0% { transform: translate(-50%,-50%) scale(0) rotate(-20deg); opacity:0;} 100% { transform: translate(-50%,-50%) scale(1) rotate(var(--final-rotation)); opacity:1;} }
+        @keyframes pop-in-and-fade-out { 0%{transform:translate(-50%,-50%) scale(0) rotate(-20deg);opacity:0;}10%{transform:translate(-50%,-50%) scale(1) rotate(var(--final-rotation));opacity:1;}70%{transform:translate(-50%,-50%) scale(1) rotate(var(--final-rotation));opacity:1;}100%{transform:translate(-50%,-50%) scale(.8) rotate(20deg);opacity:0;} }
         .star-rating svg { color: var(--line); transition: color 150ms ease-in-out; }
-        .star.activated { animation: star-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes star-pop-in { 0% { transform: scale(0.8); } 50% { transform: scale(1.25); } 100% { transform: scale(1); } }
-        
-        /* Feature Scrollytelling */
-        #features-container {
-            scroll-snap-type: y mandatory;
-        }
-        .feature-block {
-            scroll-snap-align: start;
-            min-height: 100vh;
-        }
+        .star.activated { animation: star-pop-in .4s cubic-bezier(.175,.885,.32,1.275); }
+        @keyframes star-pop-in { 0%{transform:scale(.8);}50%{transform:scale(1.25);}100%{transform:scale(1);} }
 
-        .slideshow-image {
-            opacity: 0;
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .slideshow-image.active {
-            opacity: 1;
-        }
+        /* Feature Scrollytelling */
+        #features-container { scroll-snap-type: y mandatory; }
+        .feature-block { scroll-snap-align: start; min-height: 100vh; }
+
+        .slideshow-image { opacity: 0; transition: opacity 1.2s cubic-bezier(0.4,0,0.2,1); }
+        .slideshow-image.active { opacity: 1; }
     </style>
 
     <!-- Schema.org JSON-LD -->
@@ -244,6 +100,7 @@
     <div id="svg-fallback" class="hidden">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M0 50V0h50" fill="none" stroke="#21262D" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#p)"/></svg>
     </div>
+
     <!-- Header -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/80 backdrop-blur-lg border-b border-[var(--line)] transition-shadow duration-300">
         <div class="container mx-auto px-6 py-4 max-w-7xl">
@@ -326,7 +183,7 @@
                     <!-- Feature 1: Dashboard -->
                     <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
                         <div class="border border-[var(--line)] rounded-3xl p-2">
-                            <img src="https://placehold.co/800x600/0A0A0F/00A3FF?text=Dashboard" alt="Credlify Dashboard Analytics" class="w-full h-full object-cover rounded-2xl">
+                            <img src="./assets/img/feature-dashboard.png" alt="Credlify Dashboard Analytics" class="w-full h-full object-cover rounded-2xl">
                         </div>
                         <div>
                             <h3 class="text-4xl font-extrabold" style="color: var(--feature-color-1);">Dashboard</h3>
@@ -338,14 +195,15 @@
                             </ul>
                         </div>
                     </div>
+
                     <!-- Feature 2: AI Review Replies -->
                     <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
                         <div class="md:order-last border border-[var(--line)] rounded-3xl p-2">
                              <div class="relative aspect-[4/3] image-slideshow">
-                                <img src="https://placehold.co/800x600/0A0A0F/E040FB?text=AI+Reply+1" alt="AI-powered review replies" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image active">
-                                <img src="https://placehold.co/800x600/0A0A0F/E040FB?text=AI+Reply+2" alt="Another AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image">
-                                <img src="https://placehold.co/800x600/0A0A0F/E040FB?text=AI+Reply+3" alt="A third AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image">
-                                <img src="https://placehold.co/800x600/0A0A0F/E040FB?text=AI+Reply+4" alt="A fourth AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image">
+                                <img src="./assets/img/feature-ai-replies-1.png" alt="AI-powered review replies" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image active">
+                                <img src="./assets/img/feature-ai-replies-2.png" alt="Another AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image">
+                                <img src="./assets/img/feature-ai-replies-3.png" alt="A third AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image">
+                                <img src="./assets/img/feature-ai-replies-4.png" alt="A fourth AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image">
                             </div>
                         </div>
                         <div>
@@ -358,10 +216,11 @@
                             </ul>
                         </div>
                     </div>
-                     <!-- Feature 3: Outreach -->
+
+                    <!-- Feature 3: Outreach -->
                     <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
                         <div class="border border-[var(--line)] rounded-3xl p-2">
-                            <img src="https://placehold.co/800x600/0A0A0F/00F5D4?text=5-Star+Reviews" alt="Automated outreach for 5-star reviews" class="w-full h-full object-cover rounded-2xl">
+                            <img src="./assets/img/feature-outreach.png" alt="Automated outreach for 5-star reviews" class="w-full h-full object-cover rounded-2xl">
                         </div>
                         <div>
                             <h3 class="text-4xl font-extrabold" style="color: var(--feature-color-3);">Consistently Earn More 5-Star Reviews</h3>
@@ -373,10 +232,11 @@
                             </ul>
                         </div>
                     </div>
-                     <!-- Feature 4: Alerts -->
+
+                    <!-- Feature 4: Alerts -->
                     <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
                         <div class="md:order-last border border-[var(--line)] rounded-3xl p-2">
-                           <img src="https://placehold.co/800x600/0A0A0F/FF477E?text=Negative+Alerts" alt="Negative review alerts" class="w-full h-full object-cover rounded-2xl">
+                           <img src="./assets/img/feature-alerts.png" alt="Negative review alerts" class="w-full h-full object-cover rounded-2xl">
                         </div>
                         <div>
                             <h3 class="text-4xl font-extrabold" style="color: var(--feature-color-4);">Negative Review Alerts</h3>
@@ -388,10 +248,11 @@
                             </ul>
                         </div>
                     </div>
-                     <!-- Feature 5: Review Memory -->
+
+                    <!-- Feature 5: Review Memory -->
                     <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
                          <div class="border border-[var(--line)] rounded-3xl p-2">
-                            <img src="https://placehold.co/800x600/0A0A0F/FFD60A?text=Review+Memory" alt="Review Memory Feature" class="w-full h-full object-cover rounded-2xl">
+                            <img src="./assets/img/feature-review-memory.png" alt="Review Memory Feature" class="w-full h-full object-cover rounded-2xl">
                         </div>
                         <div>
                             <h3 class="text-4xl font-extrabold" style="color: var(--feature-color-5);">Review Memory</h3>
@@ -403,12 +264,13 @@
                             </ul>
                         </div>
                     </div>
-                     <!-- Feature 6: Ask AI -->
+
+                    <!-- Feature 6: Ask AI -->
                     <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
                         <div class="md:order-last border border-[var(--line)] rounded-3xl p-2">
                            <div class="relative aspect-[4/3] image-slideshow">
-                                <img src="https://placehold.co/800x600/0A0A0F/39FF14?text=Ask+AI+1" alt="Ask AI Feature" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image active">
-                                <img src="https://placehold.co/800x600/0A0A0F/39FF14?text=Ask+AI+2" alt="Another Ask AI example" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image">
+                                <img src="./assets/img/feature-askai-1.png" alt="Ask AI Feature" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image active">
+                                <img src="./assets/img/feature-askai-2.png" alt="Another Ask AI example" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image">
                             </div>
                         </div>
                         <div>
@@ -424,7 +286,6 @@
                 </div>
             </div>
         </section>
-
 
         <!-- Exclusivity Section -->
         <section class="py-32 md:py-40 bg-[var(--bg)] relative z-10">
@@ -485,7 +346,7 @@
         <section class="py-32 md:py-40 bg-[var(--bg)] relative z-10">
             <div class="container mx-auto px-6 text-center max-w-7xl">
                 <div class="max-w-2xl mx-auto">
-                    <img src="https://placehold.co/100x100/21262D/8B949E?text=VZ" class="rounded-full mx-auto reveal" alt="Vilem Zacek, Founder">
+                    <img src="./assets/img/founders.png" class="rounded-full mx-auto reveal" alt="Vilem Zacek, Founder">
                     <h2 class="text-3xl font-bold reveal mt-6">Why we’re doing a beta</h2>
                     <blockquote class="mt-6 text-lg text-[var(--muted)] reveal leading-relaxed" style="transition-delay: 80ms;">
                         <p>"In a few years, review automation will be as essential as having a website. Right now, most businesses don’t take it seriously—yet it’s the cheapest lead-generation strategy available. We want early partners to help us shape this future standard, and in return you’ll secure lifetime access and a head start your competitors can’t catch up to."</p>
@@ -944,18 +805,15 @@
                     float angle = atan(st.y, st.x);
                     float radius = length(st);
 
-                    // Create radiating lines
                     float num_lines = 100.0;
                     float line_intensity = pow(sin(angle * num_lines) * 0.5 + 0.5, 10.0);
                     
-                    // Animated brightness pulse for the lines
                     line_intensity *= 0.1 + (sin(u_time * 0.5) * 0.5 + 0.5) * 0.2;
 
-                    // Fade lines based on radius
                     float fade = smoothstep(0.7, 0.2, radius);
                     line_intensity *= fade;
 
-                    vec3 color = vec3(0.2, 0.25, 0.5); // A subtle blue/grey
+                    vec3 color = vec3(0.2, 0.25, 0.5);
 
                     gl_FragColor = vec4(color * line_intensity, 1.0);
                 }
@@ -979,8 +837,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
