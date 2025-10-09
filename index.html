@@ -215,11 +215,8 @@
           <!-- Feature 2 -->
           <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
             <div class="md:order-last border border-[var(--line)] rounded-3xl p-2">
-              <div class="relative aspect-[4/3] image-slideshow">
-                <img src="./assets/img/feature-ai-replies-1.png" alt="AI-powered review replies" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image active" />
-                <img src="./assets/img/feature-ai-replies-2.png" alt="Another AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image" />
-                <img src="./assets/img/feature-ai-replies-3.png" alt="A third AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image" />
-                <img src="./assets/img/feature-ai-replies-4.png" alt="A fourth AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image" />
+              <div class="relative aspect-[4/3]">
+                <img src="./assets/img/feature-ai-replies-1.png" alt="AI-powered review replies" class="w-full h-full object-cover rounded-2xl" />
               </div>
             </div>
             <div>
@@ -286,8 +283,9 @@
           <!-- Feature 6 -->
           <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
             <div class="md:order-last border border-[var(--line)] rounded-3xl p-2">
-              <div class="relative aspect-[4/3]">
-                <img src="https://placehold.co/800x600/101014/E6EDF3?text=Ask+AI+Example" alt="Ask AI Feature" class="w-full h-full object-cover rounded-2xl" />
+              <div class="relative aspect-[4/3] image-slideshow">
+                <img src="./assets/img/feature-askai-1.png" alt="Ask AI Feature" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image active" />
+                <img src="./assets/img/feature-askai-2.png" alt="Another Ask AI example" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image" />
               </div>
             </div>
             <div>
@@ -757,6 +755,15 @@
       }
     }
 
+    // Slideshow
+    document.querySelectorAll('.image-slideshow').forEach(slideshow => {
+      const imgs = slideshow.querySelectorAll('.slideshow-image');
+      if (imgs.length > 1) {
+        let i = 0;
+        setInterval(() => { imgs[i].classList.remove('active'); i = (i + 1) % imgs.length; imgs[i].classList.add('active'); }, 4500);
+      }
+    });
+    
     // Review Memory Animation
     const reviewMemoryAnimationContainer = document.getElementById('review-memory-animation');
     if (reviewMemoryAnimationContainer) {
