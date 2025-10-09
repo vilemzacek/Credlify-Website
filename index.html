@@ -66,7 +66,14 @@
     .star.activated{animation:star-pop-in .4s cubic-bezier(.175,.885,.32,1.275)}
     @keyframes star-pop-in{0%{transform:scale(.8)}50%{transform:scale(1.25)}100%{transform:scale(1)}}
     #features-container{scroll-snap-type:y mandatory}
-    .feature-block{scroll-snap-align:start;min-height:100vh}
+    .feature-block{scroll-snap-align:start; padding-top: 5rem; padding-bottom: 5rem;}
+     @media (min-width: 768px) {
+      .feature-block {
+        min-height: 100vh;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
     .slideshow-image{opacity:0;transition:opacity 1.2s cubic-bezier(.4,0,.2,1)}
     .slideshow-image.active{opacity:1}
     ::selection {
@@ -144,10 +151,10 @@
 
   <main>
     <!-- Hero Section -->
-    <section class="pt-32 pb-24 md:pt-48 md:pb-48">
+    <section class="pt-24 pb-20 md:pt-48 md:pb-48">
       <div class="container mx-auto px-6 text-center relative z-10 max-w-7xl">
         <div class="max-w-4xl mx-auto">
-          <h1 class="text-5xl md:text-7xl font-extrabold leading-tight reveal">Make credibility your unfair advantage in search</h1>
+          <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight reveal">Make credibility your unfair advantage in search</h1>
           <p class="mt-6 text-lg md:text-xl text-[var(--muted)] max-w-2xl mx-auto reveal leading-relaxed" style="transition-delay:100ms;">Credlify perfected the formula for being chosen first and turning every search into opportunity</p>
           <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 reveal" style="transition-delay:200ms;">
             <a href="#beta-form" class="cta-button w-full sm:w-auto text-white px-8 py-3 font-semibold focus-ring">Apply for Beta Access (Free)</a>
@@ -158,12 +165,12 @@
     </section>
 
     <!-- Why It Matters Section -->
-    <section class="py-40 md:py-56 bg-[var(--bg)] relative z-10">
+    <section class="py-24 md:py-56 bg-[var(--bg)] relative z-10">
       <div class="container mx-auto px-6 text-center max-w-7xl">
         <div class="max-w-3xl mx-auto">
-          <h2 class="text-4xl md:text-5xl font-bold reveal">Your reputation is your most valuable currency.</h2>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold reveal">Your reputation is your most valuable currency.</h2>
           <p class="mt-6 text-lg text-[var(--muted)] reveal leading-relaxed" style="transition-delay:100ms;">Two bad reviews can change your growth curve. Credlify keeps your public image strong—so more people choose you the moment they search.</p>
-          <div id="rating-animation-container" class="mt-28 md:mt-32 h-80 relative reveal" style="transition-delay:200ms;">
+          <div id="rating-animation-container" class="mt-20 md:mt-32 h-80 relative reveal" style="transition-delay:200ms;">
             <div id="pop-container" class="absolute inset-0 z-0"></div>
             <div id="rating-wrapper" class="absolute inset-0 flex flex-col items-center justify-center">
               <div class="flex items-center space-x-4">
@@ -188,21 +195,21 @@
     <!-- Features -->
     <section id="features" class="relative z-10">
       <div class="container mx-auto px-6 max-w-7xl">
-        <div class="text-center mb-16 md:mb-24 pt-40">
-          <h2 class="text-4xl md:text-5xl font-bold reveal">Features</h2>
+        <div class="text-center mb-16 md:mb-24 pt-20">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold reveal">Features</h2>
           <p class="mt-4 text-lg text-[var(--muted)] max-w-3xl mx-auto reveal" style="transition-delay:100ms;">
             Credlify runs 24/7 to answer reviews in your voice, request new ones, track the results, and turn that trust into measurable sales, while instantly flagging issues so your reputation stays protected.
           </p>
         </div>
 
-        <div id="features-container" class="space-y-20 md:space-y-24">
+        <div id="features-container" class="space-y-16 md:space-y-24">
           <!-- Feature 1 -->
           <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
             <div class="border border-[var(--line)] rounded-3xl p-2">
               <img src="./assets/img/feature-dashboard.png" alt="Credlify Dashboard Analytics" class="w-full h-full object-cover rounded-2xl" />
             </div>
             <div>
-              <h3 class="text-4xl font-extrabold" style="color:var(--feature-color-1);">Dashboard</h3>
+              <h3 class="text-3xl md:text-4xl font-extrabold" style="color:var(--feature-color-1);">Dashboard</h3>
               <p class="mt-4 text-lg text-[var(--muted)] leading-relaxed">Have your reviews analytics straight in front of you. Credlify pulls all your reviews and gives you a clear view of your performance.</p>
               <ul class="mt-6 space-y-4 text-lg">
                 <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:var(--feature-color-1);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>See all your stats in one place</span></li>
@@ -220,7 +227,7 @@
               </div>
             </div>
             <div>
-              <h3 class="text-4xl font-extrabold" style="color:var(--feature-color-2);">AI Review Replies</h3>
+              <h3 class="text-3xl md:text-4xl font-extrabold" style="color:var(--feature-color-2);">AI Review Replies</h3>
               <p class="mt-4 text-lg text-[var(--muted)] leading-relaxed">Every review answered in your voice, automatically. Our AI responds to both positive and negative reviews using your brand tone.</p>
               <ul class="mt-6 space-y-4 text-lg">
                 <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:var(--feature-color-2);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Cover 100% of reviews without extra work</span></li>
@@ -236,7 +243,7 @@
               <img src="./assets/img/feature-outreach.png" alt="Automated outreach for 5-star reviews" class="w-full h-full object-cover rounded-2xl" />
             </div>
             <div>
-              <h3 class="text-4xl font-extrabold" style="color:var(--feature-color-3);">Consistently Earn More 5-Star Reviews</h3>
+              <h3 class="text-3xl md:text-4xl font-extrabold" style="color:var(--feature-color-3);">Consistently Earn More 5-Star Reviews</h3>
               <p class="mt-4 text-lg text-[var(--muted)] leading-relaxed">Turn past and current clients into new reviews. Credlify contacts your customer list with thank-yous and review requests.</p>
               <ul class="mt-6 space-y-4 text-lg">
                 <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:var(--feature-color-3);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Generate a steady stream of fresh 5★ reviews</span></li>
@@ -252,7 +259,7 @@
               <img src="./assets/img/feature-alerts.png" alt="Negative review alerts" class="w-full h-full object-cover rounded-2xl" />
             </div>
             <div>
-              <h3 class="text-4xl font-extrabold" style="color:var(--feature-color-4);">Negative Review Alerts</h3>
+              <h3 class="text-3xl md:text-4xl font-extrabold" style="color:var(--feature-color-4);">Negative Review Alerts</h3>
               <p class="mt-4 text-lg text-[var(--muted)] leading-relaxed">Get warned the moment your reputation is at risk. We notify you instantly if multiple negative reviews appear in a single day.</p>
               <ul class="mt-6 space-y-4 text-lg">
                 <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:var(--feature-color-4);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Catch problems before they spread</span></li>
@@ -270,7 +277,7 @@
               </div>
             </div>
             <div>
-              <h3 class="text-4xl font-extrabold" style="color:var(--feature-color-5);">Review Memory</h3>
+              <h3 class="text-3xl md:text-4xl font-extrabold" style="color:var(--feature-color-5);">Review Memory</h3>
               <p class="mt-4 text-lg text-[var(--muted)] leading-relaxed">Build a history of what works in reviews. Credlify saves your reviews so your team can learn from it.</p>
               <ul class="mt-6 space-y-4 text-lg">
                 <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:var(--feature-color-5);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Keep context even when staff change roles</span></li>
@@ -288,7 +295,7 @@
               </div>
             </div>
             <div>
-              <h3 class="text-4xl font-extrabold" style="color:var(--feature-color-6);">Ask AI</h3>
+              <h3 class="text-3xl md:text-4xl font-extrabold" style="color:var(--feature-color-6);">Ask AI</h3>
               <p class="mt-4 text-lg text-[var(--muted)] leading-relaxed">Ask AI any questions regarding your reviews. Credlify integrates AI into your system, letting you instantly search and surface relevant info from your reviews, outreach, and trends.</p>
               <ul class="mt-6 space-y-4 text-lg">
                 <li class="flex items-start"><svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:var(--feature-color-6);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Ask in plain English and get instant numbers (avg rating, reply rate, outreach conversion)</span></li>
@@ -302,10 +309,10 @@
     </section>
 
     <!-- Exclusivity -->
-    <section class="py-32 md:py-40 bg-[var(--bg)] relative z-10">
+    <section class="py-24 md:py-40 bg-[var(--bg)] relative z-10">
       <div class="container mx-auto px-6 text-center max-w-7xl">
         <div class="max-w-4xl mx-auto">
-          <h2 class="text-4xl md:text-5xl font-bold reveal">Beta testers get lifetime advantages.</h2>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold reveal">Beta testers get lifetime advantages.</h2>
           <ul class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6 text-left max-w-4xl mx-auto text-lg">
             <li class="flex items-start reveal"><svg class="w-5 h-5 mr-3 mt-1 text-[var(--accent)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Free during beta.</li>
             <li class="flex items-start reveal" style="transition-delay:80ms;"><svg class="w-5 h-5 mr-3 mt-1 text-[var(--accent)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Fixed discounted price forever.</li>
@@ -318,10 +325,10 @@
     </section>
 
     <!-- How it works -->
-    <section class="py-32 md:py-56 relative z-10">
+    <section class="py-24 md:py-56 relative z-10">
       <div class="container mx-auto px-6 max-w-7xl">
         <div class="text-center mb-16 md:mb-20">
-          <h2 class="text-4xl md:text-5xl font-bold reveal">Onboard fast. See results faster.</h2>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold reveal">Onboard fast. See results faster.</h2>
         </div>
         <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-10 text-center relative">
           <div class="absolute top-6 left-0 w-full h-px bg-[var(--line)] hidden md:block"></div>
@@ -330,11 +337,13 @@
             <h3 class="mt-6 text-xl font-bold">Apply for Beta</h3>
             <p class="mt-2 text-[var(--muted)]">Tell us about your business in 60 seconds.</p>
           </div>
+           <div class="w-1/2 h-px bg-[var(--line)] mx-auto my-8 md:hidden"></div>
           <div class="relative reveal" style="transition-delay:80ms;">
             <div class="flex items-center justify-center w-12 h-12 bg-[var(--bg)] border-2 border-[var(--line)] rounded-full mx-auto text-xl font-bold z-10 relative">2</div>
             <h3 class="mt-6 text-xl font-bold">Plug In</h3>
             <p class="mt-2 text-[var(--muted)]">We set up your dashboard, outreach, and AI tone in a quick call.</p>
           </div>
+           <div class="w-1/2 h-px bg-[var(--line)] mx-auto my-8 md:hidden"></div>
           <div class="relative reveal" style="transition-delay:160ms;">
             <div class="flex items-center justify-center w-12 h-12 bg-[var(--bg)] border-2 border-[var(--line)] rounded-full mx-auto text-xl font-bold z-10 relative">3</div>
             <h3 class="mt-6 text-xl font-bold">Grow & Improve</h3>
@@ -345,19 +354,19 @@
     </section>
 
     <!-- Pricing -->
-    <section id="pricing" class="py-32 md:py-40 relative z-10">
+    <section id="pricing" class="py-24 md:py-40 relative z-10">
       <div class="container mx-auto px-6 text-center max-w-7xl">
         <div class="max-w-md mx-auto ui-card px-10 py-12">
           <h2 class="text-3xl font-bold reveal">Pricing</h2>
           <p class="text-7xl font-bold my-6 reveal" style="transition-delay:80ms;">$0 <span class="text-xl font-normal text-[var(--muted)]">/ month (Beta)</span></p>
           <p class="text-sm text-[var(--muted)] reveal" style="transition-delay:160ms;">Future price: $60/month. Your Beta discount is 50% and is locked for life.</p>
-          <a href="#beta-form" class="mt-8 block cta-button w/full text-white px-8 py-3 font-semibold reveal focus-ring" style="transition-delay:240ms;">Apply for Beta Access (Free)</a>
+          <a href="#beta-form" class="mt-8 block cta-button w-full text-white px-8 py-3 font-semibold reveal focus-ring" style="transition-delay:240ms;">Apply for Beta Access (Free)</a>
         </div>
       </div>
     </section>
 
     <!-- Founder -->
-    <section class="py-32 md:py-40 bg-[var(--bg)] relative z-10">
+    <section class="py-24 md:py-40 bg-[var(--bg)] relative z-10">
       <div class="container mx-auto px-6 text-center max-w-7xl">
         <div class="max-w-2xl mx-auto">
           <img src="./assets/img/founders.png" class="rounded-full mx-auto reveal" alt="Vilem Zacek, Founder" />
@@ -371,10 +380,10 @@
     </section>
 
     <!-- Beta form -->
-    <section id="beta-form" class="py-32 md:py-56 relative z-10">
+    <section id="beta-form" class="py-24 md:py-56 relative z-10">
       <div class="container mx-auto px-6 max-w-7xl">
         <div class="text-center mb-16">
-          <h2 class="text-4xl md:text-5xl font-bold reveal">Apply for the Beta</h2>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold reveal">Apply for the Beta</h2>
           <p class="mt-4 text-lg text-[var(--muted)] max-w-xl mx-auto reveal leading-relaxed" style="transition-delay:80ms;">Fill out the form below to secure your spot. We'll be in touch shortly.</p>
         </div>
         <div class="max-w-lg mx-auto ui-card p-8 md:p-12 reveal" style="transition-delay:160ms;">
@@ -424,10 +433,10 @@
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="py-32 md:py-56 relative z-10">
+    <section id="faq" class="py-24 md:py-56 relative z-10">
       <div class="container mx-auto px-6 max-w-7xl">
         <div class="text-center mb-16">
-          <h2 class="text-4xl md:text-5xl font-bold reveal">Frequently Asked Questions</h2>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold reveal">Frequently Asked Questions</h2>
         </div>
         <div class="max-w-3xl mx-auto">
           <div class="border-b border-[var(--line)] reveal">
@@ -494,9 +503,9 @@
     </section>
 
     <!-- Final CTA -->
-    <section id="apply" class="py-32 md:py-40 text-center bg-[var(--bg)] relative z-10">
+    <section id="apply" class="py-24 md:py-40 text-center bg-[var(--bg)] relative z-10">
       <div class="container mx-auto px-6 max-w-7xl">
-        <h2 class="text-4xl md:text-5xl font-bold reveal">Limited beta spots.</h2>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold reveal">Limited beta spots.</h2>
         <p class="mt-4 text-lg text-[var(--muted)] max-w-xl mx-auto reveal leading-relaxed" style="transition-delay:80ms;">Get the review engine your competitors don’t have.</p>
         <div class="mt-8 reveal" style="transition-delay:160ms;">
           <a href="#beta-form" class="cta-button text-white px-8 py-3 font-semibold focus-ring">Apply for Beta Access (Free)</a>
