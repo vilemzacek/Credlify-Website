@@ -73,27 +73,35 @@
       background-color: var(--feature-color-6);
       color: var(--bg);
     }
-    .bookshelf {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        height: 100%;
-        padding: 20px;
-        gap: 10px;
-        border-bottom: 4px solid var(--line);
+    .memory-card {
+        position: absolute;
+        left: 10%;
+        width: 80%;
+        height: 15%;
+        background: linear-gradient(90deg, rgba(88, 166, 255, 0.05), rgba(164, 109, 255, 0.05));
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        opacity: 0;
+        transform: translateX(-100%);
+        animation: slide-in-out 5s ease-in-out infinite;
     }
-    .book {
-        width: 20px;
-        background-color: var(--muted);
-        border-radius: 4px 4px 0 0;
-        transform-origin: bottom center;
-        animation: library-action 8s ease-in-out infinite;
-    }
-    @keyframes library-action {
-        0%, 100% { transform: translateY(0) rotate(0); }
-        15% { transform: translateY(-50px) rotate(-8deg); }
-        35%, 75% { transform: translateY(0) rotate(0); }
-        85% { transform: translateY(-35px) rotate(6deg); }
+    @keyframes slide-in-out {
+        0%, 100% {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+        15% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        85% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        95% {
+             opacity: 0;
+             transform: translateX(100%);
+        }
     }
   </style>
 
@@ -207,11 +215,8 @@
           <!-- Feature 2 -->
           <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
             <div class="md:order-last border border-[var(--line)] rounded-3xl p-2">
-              <div class="relative aspect-[4/3] image-slideshow">
-                <img src="./assets/img/feature-ai-replies-1.png" alt="AI-powered review replies" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image active" />
-                <img src="./assets/img/feature-ai-replies-2.png" alt="Another AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image" />
-                <img src="./assets/img/feature-ai-replies-3.png" alt="A third AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image" />
-                <img src="./assets/img/feature-ai-replies-4.png" alt="A fourth AI-powered review reply" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image" />
+              <div class="relative aspect-[4/3]">
+                <img src="https://placehold.co/800x600/101014/E6EDF3?text=AI+Reply+Example" alt="AI-powered review replies" class="w-full h-full object-cover rounded-2xl" />
               </div>
             </div>
             <div>
@@ -260,7 +265,7 @@
           <!-- Feature 5 -->
           <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
             <div class="border border-[var(--line)] rounded-3xl p-2">
-              <div id="review-memory-animation" class="relative w-full aspect-[4/3] rounded-2xl bg-transparent overflow-hidden">
+              <div id="review-memory-animation" class="relative w-full aspect-[4/3] rounded-2xl bg-gray-900/10 overflow-hidden">
                 <!-- Animated cards will be injected here by JS -->
               </div>
             </div>
@@ -278,9 +283,8 @@
           <!-- Feature 6 -->
           <div class="feature-block grid md:grid-cols-2 gap-12 md:gap-24 items-center reveal">
             <div class="md:order-last border border-[var(--line)] rounded-3xl p-2">
-              <div class="relative aspect-[4/3] image-slideshow">
-                <img src="./assets/img/feature-askai-1.png" alt="Ask AI Feature" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image active" />
-                <img src="./assets/img/feature-askai-2.png" alt="Another Ask AI example" class="absolute inset-0 w-full h-full object-cover rounded-2xl slideshow-image" />
+              <div class="relative aspect-[4/3]">
+                <img src="https://placehold.co/800x600/101014/E6EDF3?text=Ask+AI+Example" alt="Ask AI Feature" class="w-full h-full object-cover rounded-2xl" />
               </div>
             </div>
             <div>
@@ -356,7 +360,7 @@
     <section class="py-32 md:py-40 bg-[var(--bg)] relative z-10">
       <div class="container mx-auto px-6 text-center max-w-7xl">
         <div class="max-w-2xl mx-auto">
-          <img src="https://placehold.co/128x128/14141A/FFFFFF?text=VZ" class="rounded-full mx-auto reveal" alt="Vilem Zacek, Founder" />
+          <img src="./assets/img/founder.png" class="rounded-full mx-auto reveal" alt="Vilem Zacek, Founder" />
           <h2 class="text-3xl font-bold reveal mt-6">Why we’re doing a beta</h2>
           <blockquote class="mt-6 text-lg text-[var(--muted)] reveal leading-relaxed" style="transition-delay:80ms;">
             <p>"In a few years, review automation will be as essential as having a website. Right now, most businesses don’t take it seriously—yet it’s the cheapest lead-generation strategy available. We want early partners to help us shape this future standard, and in return you’ll secure lifetime access and a head start your competitors can’t catch up to."</p>
@@ -775,19 +779,14 @@
         function startReviewMemoryAnimation() {
             const container = document.getElementById('review-memory-animation');
             container.innerHTML = '';
-            const bookshelf = document.createElement('div');
-            bookshelf.className = 'bookshelf';
-            const bookCount = 12;
-            for (let i = 0; i < bookCount; i++) {
-                const book = document.createElement('div');
-                book.className = 'book';
-                book.style.animationDelay = `${i * 0.4}s`;
-                book.style.height = `${60 + Math.random() * 30}%`;
-                const colors = ['--feature-color-1', '--feature-color-2', '--feature-color-3', '--feature-color-4', '--feature-color-5', '--accent'];
-                book.style.backgroundColor = `var(${colors[i % colors.length]})`;
-                bookshelf.appendChild(book);
+            const cardCount = 4;
+            for (let i = 0; i < cardCount; i++) {
+                const card = document.createElement('div');
+                card.classList.add('memory-card');
+                card.style.top = `${18 + i * 18}%`;
+                card.style.animationDelay = `${i * 0.7}s`;
+                container.appendChild(card);
             }
-            container.appendChild(bookshelf);
         }
     }
 
